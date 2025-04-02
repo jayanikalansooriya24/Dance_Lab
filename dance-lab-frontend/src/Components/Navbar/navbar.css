@@ -1,0 +1,45 @@
+/* src/Components/Navbar/navbar.css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.navbar-links li a {
+  text-decoration: none;
+  color: #2914e6;
+  font-size: medium;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar-links li a:hover {
+  color: #27040f;
+}
+
+.logo-img {
+  height: 200px;           /* ✅ Reasonable size for a navbar */
+  width: auto;            /* ✅ Maintain aspect ratio */
+  object-fit: contain;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem; /* optional spacing */
+}
+
