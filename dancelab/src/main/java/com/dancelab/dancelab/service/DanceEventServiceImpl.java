@@ -24,8 +24,9 @@ public class DanceEventServiceImpl implements DanceEventService {
     }
 
     @Override
-    public DanceEvent updateEvent(Long id, DanceEvent updatedEvent) {
-        DanceEvent existing = repository.findById(id).orElseThrow();
+    public DanceEvent updateEvent(String id, DanceEvent updatedEvent) {
+        DanceEvent existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("DanceEvent not found with id: " + id));
         existing.setTitle(updatedEvent.getTitle());
         existing.setLocation(updatedEvent.getLocation());
         existing.setEventDate(updatedEvent.getEventDate());
@@ -36,7 +37,7 @@ public class DanceEventServiceImpl implements DanceEventService {
     }
 
     @Override
-    public void deleteEvent(Long id) {
+    public void deleteEvent(String id) {
         repository.deleteById(id);
     }
 }

@@ -16,22 +16,22 @@ public class DanceEventController {
     private DanceEventService service;
 
     @PostMapping
-    public DanceEvent createEvent(@RequestBody DanceEvent event) {
+    public DanceEvent createEvent(@RequestBody DanceEvent event) {//create
         return service.createEvent(event);
     }
 
     @GetMapping
-    public List<DanceEvent> getAllEvents() {
+    public List<DanceEvent> getAllEvents() {//read
         return service.getAllEvents();
     }
 
     @PutMapping("/{id}")
-    public DanceEvent updateEvent(@PathVariable Long id, @RequestBody DanceEvent updated) {
+    public DanceEvent updateEvent(@PathVariable String id, @RequestBody DanceEvent updated) {//update
         return service.updateEvent(id, updated);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteEvent(@PathVariable Long id) {
+    @DeleteMapping("/{id}")//delete
+    public void deleteEvent(@PathVariable String id) {
         service.deleteEvent(id);
     }
 }

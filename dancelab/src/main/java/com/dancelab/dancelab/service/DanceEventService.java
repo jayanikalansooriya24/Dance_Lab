@@ -6,6 +6,7 @@ import java.util.List;
 public interface DanceEventService {
     DanceEvent createEvent(DanceEvent event);
     List<DanceEvent> getAllEvents();
-    DanceEvent updateEvent(Long id, DanceEvent updatedEvent);
-    void deleteEvent(Long id);
+    DanceEvent updateEvent(String id, DanceEvent updatedEvent);
+    void deleteEvent(String id);
 }
+
