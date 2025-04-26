@@ -24,8 +24,6 @@ const Home = () => {
 </section>
 
 
-
-
       {/* Features Section */}
       <section className="features-section">
         <h2>Why Dance Lab?</h2>
