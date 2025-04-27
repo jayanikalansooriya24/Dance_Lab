@@ -1,40 +1,44 @@
 package com.dancelab.dancelab.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Document(collection = "collab_projects") // or "collab" if you prefer
 public class CollabProject {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String projectTitle;
     private String description;
-
-    @Temporal(TemporalType.DATE)
     private Date startDate;
-
-    @Temporal(TemporalType.DATE)
     private Date endDate;
-
-    @ElementCollection
     private List<String> roles;
-
-    @ElementCollection
     private List<String> collaborators;
+    private boolean completed;
 
-    private boolean isCompleted;
+    // Constructors
+    public CollabProject() {}
+
+    public CollabProject(String projectTitle, String description, Date startDate, Date endDate,
+                         List<String> roles, List<String> collaborators, boolean completed) {
+        this.projectTitle = projectTitle;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.roles = roles;
+        this.collaborators = collaborators;
+        this.completed = completed;
+    }
 
     // Getters and Setters
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -87,10 +91,10 @@ public class CollabProject {
     }
 
     public boolean isCompleted() {
-        return isCompleted;
+        return completed;
     }
 
     public void setCompleted(boolean completed) {
-        isCompleted = completed;
+        this.completed = completed;
     }
 }

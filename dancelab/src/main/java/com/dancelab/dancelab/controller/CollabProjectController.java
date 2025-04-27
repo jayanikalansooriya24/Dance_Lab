@@ -8,30 +8,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/collab-projects")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/collab")
+@CrossOrigin(origins = "*") // allow Postman to connect
 public class CollabProjectController {
 
+    private final CollabProjectService collabProjectService;
+
     @Autowired
-    private CollabProjectService service;
+    public CollabProjectController(CollabProjectService collabProjectService) {
+        this.collabProjectService = collabProjectService;
+    }
 
     @PostMapping
     public CollabProject createProject(@RequestBody CollabProject project) {
-        return service.createProject(project);
+        return collabProjectService.createProject(project);
     }
 
     @GetMapping
     public List<CollabProject> getAllProjects() {
-        return service.getAllProjects();
+        return collabProjectService.getAllProjects();
     }
 
     @PutMapping("/{id}")
-    public CollabProject updateProject(@PathVariable Long id, @RequestBody CollabProject updated) {
-        return service.updateProject(id, updated);
+    public CollabProject updateProject(@PathVariable String id, @RequestBody CollabProject updatedProject) {
+        return collabProjectService.updateProject(id, updatedProject);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProject(@PathVariable Long id) {
-        service.deleteProject(id);
+    public void deleteProject(@PathVariable String id) {
+        collabProjectService.deleteProject(id);
     }
 }
