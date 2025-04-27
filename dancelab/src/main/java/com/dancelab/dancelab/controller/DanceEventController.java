@@ -16,7 +16,7 @@ public class DanceEventController {
     private DanceEventService service;
 
     @PostMapping
-    public DanceEvent createEvent(@RequestBody DanceEvent event) {//create
+    public DanceEvent createEvent(@RequestBody DanceEvent event) {//Create
         return service.createEvent(event);
     }
 
