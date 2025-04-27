@@ -5,6 +5,7 @@ import java.util.Date;
 
 @Entity
 public class DanceAnalysis {
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
