@@ -9,17 +9,20 @@ import {
   Typography,
   Box,
   Paper,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import axios from "axios";
 import "./VideoUpload.css";
 
-export default function VideoUpload({ onUpload }) {
+export default function VideoUpload({ onUpload = () => {} }) {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [style, setStyle] = useState("");
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +38,7 @@ export default function VideoUpload({ onUpload }) {
     formData.append("style", style);
 
     try {
-      const response = await axios.post("http://localhost:8080/api/videos", formData, {
+      const response = await axios.post("http://localhost:9090/api/videos", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -47,6 +50,7 @@ export default function VideoUpload({ onUpload }) {
       setDifficulty("");
       setStyle("");
       setError(null);
+      setSuccess(true);
     } catch (err) {
       setError("Failed to upload video: " + err.message);
     }
@@ -118,6 +122,11 @@ export default function VideoUpload({ onUpload }) {
           </motion.div>
         </form>
       </Paper>
+      <Snackbar open={success} autoHideDuration={3000} onClose={() => setSuccess(false)}>
+        <Alert onClose={() => setSuccess(false)} severity="success" sx={{ width: "100%" }}>
+          Video uploaded successfully!
+        </Alert>
+      </Snackbar>
     </motion.div>
   );
 }
