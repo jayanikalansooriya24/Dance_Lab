@@ -9,11 +9,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/videos")
+@CrossOrigin(origins = "*") // Optional: useful if you're testing from frontend like React/Postman
 public class VideoController {
 
     @Autowired
     private DanceVideoRepository videoRepository;
 
+    // GET all or filtered videos
     @GetMapping
     public List<DanceVideo> getVideos(
             @RequestParam(required = false) String title,
@@ -25,9 +27,35 @@ public class VideoController {
         return videoRepository.findAll();
     }
 
-    // POST endpoint to add a new DanceVideo
+    // POST to add new video
     @PostMapping
     public DanceVideo addVideo(@RequestBody DanceVideo video) {
-        return videoRepository.save(video);  // Saves and returns the saved DanceVideo
+        return videoRepository.save(video);
     }
+
+    // DELETE video by ID
+    @DeleteMapping("/{id}")
+    public String deleteVideo(@PathVariable String id) {
+        if (videoRepository.existsById(id)) {
+            videoRepository.deleteById(id);
+            return "Video with ID " + id + " has been deleted.";
+        } else {
+            return "Video with ID " + id + " not found.";
+        }
+    }
+    // PUT (Update) video by ID
+    @PutMapping("/{id}")
+    public DanceVideo updateVideo(@PathVariable String id, @RequestBody DanceVideo updatedVideo) {
+                return videoRepository.findById(id)
+            .map(existingVideo -> {
+                existingVideo.setTitle(updatedVideo.getTitle());
+                existingVideo.setStyle(updatedVideo.getStyle());
+                existingVideo.setDifficulty(updatedVideo.getDifficulty());
+                existingVideo.setVideoUrl(updatedVideo.getVideoUrl());
+                existingVideo.setAudio(updatedVideo.getAudio());
+                return videoRepository.save(existingVideo);
+            })
+            .orElseThrow(() -> new RuntimeException("Video not found with id: " + id));
+}
+
 }

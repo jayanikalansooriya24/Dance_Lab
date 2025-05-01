@@ -1,42 +1,36 @@
 package com.dancelab.dancelab.Model;
 
-import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "dance_videos")
+// This will create a MongoDB collection named "dance_videos"
+@Document(collection = "dance_videos")
 public class DanceVideo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private String id;
     private String title;
-    private String videoUrl;
     private String style;
     private String difficulty;
-    private int rating; // 1-5 stars
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "audio_id")
+    private String videoUrl;  // <-- ADD this field
     private Audio audio;
 
-    @OneToMany(mappedBy = "video")
-    private List<Comment> comments = new ArrayList<>();
-
+    // Constructors
     public DanceVideo() {}
 
+    public DanceVideo(String title, String style, String difficulty, String videoUrl) {
+        this.title = title;
+        this.style = style;
+        this.difficulty = difficulty;
+        this.videoUrl = videoUrl;
+    }
+
     // Getters and Setters
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,14 +40,6 @@ public class DanceVideo {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
     }
 
     public String getStyle() {
@@ -72,22 +58,14 @@ public class DanceVideo {
         this.difficulty = difficulty;
     }
 
-    public int getRating() {
-        return rating;
+    public String getVideoUrl() {
+        return videoUrl;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
+    // Ensure that this setAudio method exists
     public Audio getAudio() {
         return audio;
     }
@@ -95,12 +73,6 @@ public class DanceVideo {
     public void setAudio(Audio audio) {
         this.audio = audio;
     }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
+    
 }
+
