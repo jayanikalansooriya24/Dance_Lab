@@ -14,7 +14,7 @@ const Home = () => {
 
     <div className="cta-buttons">
       <Link to="/signup" className="cta-button primary">Join Now</Link>
-      <Link to="/explore" className="cta-button secondary">Explore</Link>
+      <Link to="/create" className="cta-button secondary">Book Event</Link>
     </div>
 
     <div className="hero-image-section">
