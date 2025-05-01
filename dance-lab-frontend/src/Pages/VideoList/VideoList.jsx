@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Typography, Box, Grid, IconButton, TextField, Button, List, ListItem, ListItemText } from "@mui/material";
+import { Typography, Box, Grid, IconButton, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import ExpandIcon from "@mui/icons-material/Expand";
 import CollapseIcon from "@mui/icons-material/Compress";
@@ -8,6 +8,10 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
 import "./VideoList.css";
 
 // Component for an individual video item
@@ -21,12 +25,14 @@ function VideoItem({ video, isExpanded, onExpand, onCollapse }) {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingCommentText, setEditingCommentText] = useState("");
 
   // Function to fetch comments
   const fetchComments = async () => {
     try {
       const response = await axios.get(`http://localhost:9090/api/videos/${video.id}/comments`);
-      console.log("Fetched comments for video", video.id, ":", response.data); // Log the response
+      console.log("Fetched comments for video", video.id, ":", response.data);
       const fetchedComments = response.data || [];
       setComments(fetchedComments);
     } catch (err) {
@@ -120,14 +126,48 @@ function VideoItem({ video, isExpanded, onExpand, onCollapse }) {
       const response = await axios.post(`http://localhost:9090/api/videos/${video.id}/comments`, {
         text: newComment,
       });
-      console.log("Added comment response:", response.data); // Log the response
-      setNewComment(""); // Clear the input field
-      // Refetch comments after a slight delay to ensure MongoDB has updated
+      console.log("Added comment response:", response.data);
+      setNewComment("");
       setTimeout(fetchComments, 500);
     } catch (err) {
       console.error("Failed to add comment:", err);
       alert("Failed to add comment. Please try again.");
     }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      await axios.delete(`http://localhost:9090/api/videos/${video.id}/comments/${commentId}`);
+      setTimeout(fetchComments, 500);
+    } catch (err) {
+      console.error("Failed to delete comment:", err);
+      alert("Failed to delete comment. Please try again.");
+    }
+  };
+
+  const handleEditComment = (comment) => {
+    setEditingCommentId(comment.id);
+    setEditingCommentText(comment.text);
+  };
+
+  const handleUpdateComment = async (commentId) => {
+    if (editingCommentText.trim() === "") return;
+    try {
+      await axios.put(`http://localhost:9090/api/videos/${video.id}/comments/${commentId}`, {
+        text: editingCommentText,
+      });
+      setEditingCommentId(null);
+      setEditingCommentText("");
+      setTimeout(fetchComments, 500);
+    } catch (err) {
+      console.error("Failed to update comment:", err);
+      alert("Failed to update comment. Please try again.");
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingCommentId(null);
+    setEditingCommentText("");
   };
 
   const handleShare = () => {
@@ -214,7 +254,37 @@ function VideoItem({ video, isExpanded, onExpand, onCollapse }) {
             <List>
               {comments.map((comment, index) => (
                 <ListItem key={comment.id || index}>
-                  <ListItemText primary={comment.text || "No text available"} />
+                  {editingCommentId === comment.id ? (
+                    <>
+                      <TextField
+                        value={editingCommentText}
+                        onChange={(e) => setEditingCommentText(e.target.value)}
+                        fullWidth
+                        variant="outlined"
+                        size="small"
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton onClick={() => handleUpdateComment(comment.id)} aria-label="save">
+                          <SaveIcon color="primary" />
+                        </IconButton>
+                        <IconButton onClick={handleCancelEdit} aria-label="cancel">
+                          <CancelIcon color="secondary" />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </>
+                  ) : (
+                    <>
+                      <ListItemText primary={comment.text || "No text available"} />
+                      <ListItemSecondaryAction>
+                        <IconButton onClick={() => handleEditComment(comment)} aria-label="edit">
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton onClick={() => handleDeleteComment(comment.id)} aria-label="delete">
+                          <DeleteIcon />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </>
+                  )}
                 </ListItem>
               ))}
             </List>
