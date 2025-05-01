@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/events")
-@CrossOrigin(origins = "http://localhost:5174")  // Restrict to your frontend URL in development
+@CrossOrigin(origins = "http://localhost:5173")  // Restrict to your frontend URL in development
 public class DanceEventController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class DanceEventController {
          System.err.println("Error: " + e.getMessage());
          return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
      }
-     
+
     // Get all events
     @GetMapping
     public ResponseEntity<List<DanceEvent>> getAllEvents() {

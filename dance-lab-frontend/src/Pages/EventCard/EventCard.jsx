@@ -6,7 +6,7 @@ function EventCard({ event }) {
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure to delete this event?")) {
-      await axios.delete(`http://localhost:8080/api/events/${event.id}`);
+      await axios.delete(`http://localhost:9090/api/events/${event.id}`);
       window.location.reload();
     }
   };
