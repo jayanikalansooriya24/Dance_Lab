@@ -1,10 +1,13 @@
 package com.dancelab.dancelab.Controller;
 
 import com.dancelab.dancelab.Model.DanceVideo;
+import com.dancelab.dancelab.Model.Comment;
 import com.dancelab.dancelab.repository.DanceVideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +22,8 @@ import java.util.UUID;
 @CrossOrigin(origins = "*")
 public class VideoController {
 
+    private static final Logger logger = LoggerFactory.getLogger(VideoController.class);
+
     @Autowired
     private DanceVideoRepository videoRepository;
 
@@ -29,10 +34,25 @@ public class VideoController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String style,
             @RequestParam(required = false) String difficulty) {
-        if (title != null) return videoRepository.findByTitleContaining(title);
-        if (style != null) return videoRepository.findByStyle(style);
-        if (difficulty != null) return videoRepository.findByDifficulty(difficulty);
-        return videoRepository.findAll();
+        logger.info("Fetching videos with filters - title: {}, style: {}, difficulty: {}", title, style, difficulty);
+        if (title != null) {
+            List<DanceVideo> videos = videoRepository.findByTitleContaining(title);
+            logger.debug("Found {} videos by title: {}", videos.size(), title);
+            return videos;
+        }
+        if (style != null) {
+            List<DanceVideo> videos = videoRepository.findByStyle(style);
+            logger.debug("Found {} videos by style: {}", videos.size(), style);
+            return videos;
+        }
+        if (difficulty != null) {
+            List<DanceVideo> videos = videoRepository.findByDifficulty(difficulty);
+            logger.debug("Found {} videos by difficulty: {}", videos.size(), difficulty);
+            return videos;
+        }
+        List<DanceVideo> videos = videoRepository.findAll();
+        logger.debug("Found {} videos (all)", videos.size());
+        return videos;
     }
 
     @PostMapping
@@ -41,14 +61,37 @@ public class VideoController {
             @RequestParam("title") String title,
             @RequestParam("difficulty") String difficulty,
             @RequestParam("style") String style) throws IOException {
+        if (file.isEmpty()) {
+            logger.error("Upload failed: No file provided");
+            throw new IllegalArgumentException("No file provided");
+        }
+        if (!file.getContentType().equals("video/mp4")) {
+            logger.error("Upload failed: Invalid file type - {}", file.getContentType());
+            throw new IllegalArgumentException("Only MP4 videos are allowed! Provided type: " + file.getContentType());
+        }
+
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
+            logger.info("Created upload directory: {}", UPLOAD_DIR);
         }
 
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null || !originalFilename.contains(".")) {
+            originalFilename = "video.mp4";
+            logger.warn("Original filename missing extension, defaulting to: {}", originalFilename);
+        }
+
+        String fileName = UUID.randomUUID() + "_" + originalFilename;
         Path filePath = Paths.get(UPLOAD_DIR, fileName);
-        Files.write(filePath, file.getBytes());
+
+        try {
+            Files.write(filePath, file.getBytes());
+            logger.info("Saved video file to: {}", filePath.toString());
+        } catch (IOException e) {
+            logger.error("Failed to save video file to {}: {}", filePath.toString(), e.getMessage());
+            throw new IOException("Failed to save video file: " + e.getMessage());
+        }
 
         DanceVideo video = new DanceVideo();
         video.setTitle(title);
@@ -56,28 +99,37 @@ public class VideoController {
         video.setStyle(style);
         video.setVideoUrl("/videos/" + fileName);
 
-        return videoRepository.save(video);
+        DanceVideo savedVideo = videoRepository.save(video);
+        logger.info("Saved video metadata to MongoDB: {}", savedVideo.getId());
+        return savedVideo;
     }
 
     @DeleteMapping("/{id}")
     public String deleteVideo(@PathVariable String id) {
+        logger.info("Deleting video with ID: {}", id);
         if (videoRepository.existsById(id)) {
             DanceVideo video = videoRepository.findById(id).orElse(null);
             if (video != null && video.getVideoUrl() != null) {
                 File file = new File(UPLOAD_DIR + video.getVideoUrl().replace("/videos/", ""));
                 if (file.exists()) {
-                    file.delete();
+                    boolean deleted = file.delete();
+                    logger.info("Deleted video file {}: {}", file.getAbsolutePath(), deleted);
+                } else {
+                    logger.warn("Video file not found for deletion: {}", file.getAbsolutePath());
                 }
             }
             videoRepository.deleteById(id);
+            logger.info("Deleted video metadata from MongoDB: {}", id);
             return "Video with ID " + id + " has been deleted.";
         } else {
+            logger.warn("Video not found for deletion: {}", id);
             return "Video with ID " + id + " not found.";
         }
     }
 
     @PutMapping("/{id}")
     public DanceVideo updateVideo(@PathVariable String id, @RequestBody DanceVideo updatedVideo) {
+        logger.info("Updating video with ID: {}", id);
         return videoRepository.findById(id)
                 .map(existingVideo -> {
                     existingVideo.setTitle(updatedVideo.getTitle());
@@ -85,8 +137,108 @@ public class VideoController {
                     existingVideo.setDifficulty(updatedVideo.getDifficulty());
                     existingVideo.setVideoUrl(updatedVideo.getVideoUrl());
                     existingVideo.setAudio(updatedVideo.getAudio());
-                    return videoRepository.save(existingVideo);
+                    DanceVideo savedVideo = videoRepository.save(existingVideo);
+                    logger.info("Updated video metadata in MongoDB: {}", id);
+                    return savedVideo;
                 })
-                .orElseThrow(() -> new RuntimeException("Video not found with id: " + id));
+                .orElseThrow(() -> {
+                    logger.error("Video not found for update: {}", id);
+                    return new RuntimeException("Video not found with id: " + id);
+                });
+    }
+
+    @PostMapping("/{id}/like")
+    public DanceVideo likeVideo(@PathVariable String id, @RequestBody LikeRequest request) {
+        logger.info("Processing like request for video ID: {}, action: {}", id, request.getAction());
+        return videoRepository.findById(id)
+                .map(video -> {
+                    if ("like".equals(request.getAction())) {
+                        video.setLikes(video.getLikes() + 1);
+                        logger.debug("Incremented likes for video ID: {}. New count: {}", id, video.getLikes());
+                    } else if ("unlike".equals(request.getAction())) {
+                        video.setLikes(video.getLikes() - 1);
+                        logger.debug("Decremented likes for video ID: {}. New count: {}", id, video.getLikes());
+                    }
+                    DanceVideo savedVideo = videoRepository.save(video);
+                    return savedVideo;
+                })
+                .orElseThrow(() -> {
+                    logger.error("Video not found for like: {}", id);
+                    return new RuntimeException("Video not found with id: " + id);
+                });
+    }
+
+    @PostMapping("/{id}/dislike")
+    public DanceVideo dislikeVideo(@PathVariable String id, @RequestBody LikeRequest request) {
+        logger.info("Processing dislike request for video ID: {}, action: {}", id, request.getAction());
+        return videoRepository.findById(id)
+                .map(video -> {
+                    if ("dislike".equals(request.getAction())) {
+                        video.setDislikes(video.getDislikes() + 1);
+                        logger.debug("Incremented dislikes for video ID: {}. New count: {}", id, video.getDislikes());
+                    } else if ("undislike".equals(request.getAction())) {
+                        video.setDislikes(video.getDislikes() - 1);
+                        logger.debug("Decremented dislikes for video ID: {}. New count: {}", id, video.getDislikes());
+                    }
+                    DanceVideo savedVideo = videoRepository.save(video);
+                    return savedVideo;
+                })
+                .orElseThrow(() -> {
+                    logger.error("Video not found for dislike: {}", id);
+                    return new RuntimeException("Video not found with id: " + id);
+                });
+    }
+
+    @GetMapping("/{id}/comments")
+    public List<Comment> getComments(@PathVariable String id) {
+        logger.info("Fetching comments for video ID: {}", id);
+        return videoRepository.findById(id)
+                .map(DanceVideo::getComments)
+                .orElseThrow(() -> {
+                    logger.error("Video not found for comments: {}", id);
+                    return new RuntimeException("Video not found with id: " + id);
+                });
+    }
+
+    @PostMapping("/{id}/comments")
+    public Comment addComment(@PathVariable String id, @RequestBody CommentRequest request) {
+        logger.info("Adding comment to video ID: {}", id);
+        return videoRepository.findById(id)
+                .map(video -> {
+                    Comment comment = new Comment(request.getText());
+                    video.addComment(comment);
+                    videoRepository.save(video);
+                    logger.debug("Added comment to video ID: {}. Comment: {}", id, comment.getText());
+                    return comment;
+                })
+                .orElseThrow(() -> {
+                    logger.error("Video not found for adding comment: {}", id);
+                    return new RuntimeException("Video not found with id: " + id);
+                });
+    }
+}
+
+// Request classes for like/dislike and comment
+class LikeRequest {
+    private String action;
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+}
+
+class CommentRequest {
+    private String text;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

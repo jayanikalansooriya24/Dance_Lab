@@ -42,7 +42,7 @@ public class VideoService {
             video.setVideoUrl(videoUrl);
             video.setStyle(style);
             video.setDifficulty(difficulty);
-            video.setAudio(audio);
+            
 
             danceVideoRepository.save(video);
 

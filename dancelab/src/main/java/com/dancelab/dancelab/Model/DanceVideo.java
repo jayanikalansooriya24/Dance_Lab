@@ -3,26 +3,27 @@ package com.dancelab.dancelab.Model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-// This will create a MongoDB collection named "dance_videos"
+import java.util.ArrayList;
+import java.util.List;
+
 @Document(collection = "dance_videos")
 public class DanceVideo {
-
     @Id
     private String id;
     private String title;
-    private String style;
     private String difficulty;
-    private String videoUrl;  // <-- ADD this field
-    private Audio audio;
+    private String style;
+    private String videoUrl;
+    private String audio;
+    private int likes;
+    private int dislikes;
+    private List<Comment> comments;
 
     // Constructors
-    public DanceVideo() {}
-
-    public DanceVideo(String title, String style, String difficulty, String videoUrl) {
-        this.title = title;
-        this.style = style;
-        this.difficulty = difficulty;
-        this.videoUrl = videoUrl;
+    public DanceVideo() {
+        this.likes = 0;
+        this.dislikes = 0;
+        this.comments = new ArrayList<>();
     }
 
     // Getters and Setters
@@ -42,20 +43,20 @@ public class DanceVideo {
         this.title = title;
     }
 
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
     public String getDifficulty() {
         return difficulty;
     }
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 
     public String getVideoUrl() {
@@ -65,14 +66,40 @@ public class DanceVideo {
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
     }
-    // Ensure that this setAudio method exists
-    public Audio getAudio() {
+
+    public String getAudio() {
         return audio;
     }
 
-    public void setAudio(Audio audio) {
+    public void setAudio(String audio) {
         this.audio = audio;
     }
-    
-}
 
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+}
