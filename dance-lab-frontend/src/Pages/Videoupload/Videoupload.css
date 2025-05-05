@@ -1,51 +1,47 @@
-.video-upload-container {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  .video-upload-paper {
-    padding: 24px;
-    max-width: 500px;
-    width: 100%;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
-  
-  .error-message {
-    margin-bottom: 16px;
-    color: #d32f2f;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.file-input-container {
+  position: relative;
+  padding: 16px;
+  border: 2px dashed #93c5fd;
+  border-radius: 12px;
+  background: #f8fafc;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.file-input-container.drag-active {
+  border-color: #3b82f6;
+  background: #e0f2fe;
+}
+
+.file-input {
+  display: none;
+}
+
+.custom-file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.custom-file-label:hover {
+  background: #2563eb;
+}
+
+@media (max-width: 640px) {
   .file-input-container {
-    margin-bottom: 16px;
-  }
-  
-  .file-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .file-input::-webkit-file-upload-button {
-    padding: 8px 16px;
-    background-color: #1976d2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .file-input::-webkit-file-upload-button:hover {
-    background-color: #1565c0;
-  }
-  
-  .upload-button {
-    margin-top: 16px;
     padding: 12px;
-    font-size: 16px;
-    text-transform: none;
   }
+
+  .custom-file-label {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
