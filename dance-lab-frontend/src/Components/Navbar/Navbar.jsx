@@ -16,7 +16,6 @@ const Navbar = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/eventsview">Events</Link></li>
-        <li><Link to="/classes">Classes</Link></li>
         <li><Link to="/contact">Contact</Link></li>
 
         <li
@@ -29,6 +28,7 @@ const Navbar = () => {
             <ul className="dropdown-menu">
               <li><Link to="/services/dance-challenge">Dance Challenge Collaboration</Link></li>
               <li><Link to="/services/routine-sharing">Dance Routine Creation and Sharing</Link></li>
+              <li><Link to="/services/routine-sharing">Dance Schedulling Analysis and Feedback </Link></li>
             </ul>
           )}
         </li>
