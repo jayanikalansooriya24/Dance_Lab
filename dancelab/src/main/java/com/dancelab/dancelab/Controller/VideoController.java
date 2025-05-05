@@ -132,11 +132,22 @@ public class VideoController {
         logger.info("Updating video with ID: {}", id);
         return videoRepository.findById(id)
                 .map(existingVideo -> {
-                    existingVideo.setTitle(updatedVideo.getTitle());
-                    existingVideo.setStyle(updatedVideo.getStyle());
-                    existingVideo.setDifficulty(updatedVideo.getDifficulty());
-                    existingVideo.setVideoUrl(updatedVideo.getVideoUrl());
-                    existingVideo.setAudio(updatedVideo.getAudio());
+                    // Only update fields that are provided in the request body
+                    if (updatedVideo.getTitle() != null) {
+                        existingVideo.setTitle(updatedVideo.getTitle());
+                    }
+                    if (updatedVideo.getStyle() != null) {
+                        existingVideo.setStyle(updatedVideo.getStyle());
+                    }
+                    if (updatedVideo.getDifficulty() != null) {
+                        existingVideo.setDifficulty(updatedVideo.getDifficulty());
+                    }
+                    if (updatedVideo.getVideoUrl() != null) {
+                        existingVideo.setVideoUrl(updatedVideo.getVideoUrl());
+                    }
+                    if (updatedVideo.getAudio() != null) {
+                        existingVideo.setAudio(updatedVideo.getAudio());
+                    }
                     DanceVideo savedVideo = videoRepository.save(existingVideo);
                     logger.info("Updated video metadata in MongoDB: {}", id);
                     return savedVideo;
@@ -215,6 +226,43 @@ public class VideoController {
                     logger.error("Video not found for adding comment: {}", id);
                     return new RuntimeException("Video not found with id: " + id);
                 });
+    }
+
+    @PutMapping("/{videoId}/comments/{commentId}")
+    public Comment updateComment(@PathVariable String videoId, @PathVariable String commentId, @RequestBody CommentRequest request) {
+        logger.info("Updating comment ID: {} on video ID: {}", commentId, videoId);
+        return videoRepository.findById(videoId)
+                .map(video -> {
+                    List<Comment> comments = video.getComments();
+                    for (Comment comment : comments) {
+                        if (comment.getId().equals(commentId)) {
+                            comment.setText(request.getText());
+                            videoRepository.save(video);
+                            logger.debug("Updated comment: {}", commentId);
+                            return comment;
+                        }
+                    }
+                    throw new RuntimeException("Comment not found with id: " + commentId);
+                })
+                .orElseThrow(() -> new RuntimeException("Video not found with id: " + videoId));
+    }
+
+    @DeleteMapping("/{videoId}/comments/{commentId}")
+    public String deleteComment(@PathVariable String videoId, @PathVariable String commentId) {
+        logger.info("Deleting comment ID: {} from video ID: {}", commentId, videoId);
+        return videoRepository.findById(videoId)
+                .map(video -> {
+                    List<Comment> comments = video.getComments();
+                    boolean removed = comments.removeIf(c -> c.getId().equals(commentId));
+                    if (removed) {
+                        videoRepository.save(video);
+                        logger.debug("Deleted comment: {}", commentId);
+                        return "Comment with ID " + commentId + " has been deleted.";
+                    } else {
+                        throw new RuntimeException("Comment not found with id: " + commentId);
+                    }
+                })
+                .orElseThrow(() -> new RuntimeException("Video not found with id: " + videoId));
     }
 }
 
