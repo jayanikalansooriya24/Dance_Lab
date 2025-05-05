@@ -1,0 +1,52 @@
+.about-container {
+    padding: 3rem 2rem;
+    max-width: 900px;
+    margin: auto;
+    font-family: "Poppins", sans-serif;
+    color: #4a148c;
+    text-align: center;
+  }
+  
+  .about-hero h1 {
+    font-size: 3.0rem;
+    margin-bottom: 1rem;
+    color: #6a1b9a;
+  }
+  
+  .about-hero p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .about-mission,
+  .about-values,
+  .about-cta {
+    margin-top: 3rem;
+  }
+  
+  .about-values ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1rem;
+  }
+  
+  .about-values li {
+    margin: 0.5rem 0;
+  }
+  
+  .join-btn {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background: #ec407a;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .join-btn:hover {
+    background: #d81b60;
+  }
+  
