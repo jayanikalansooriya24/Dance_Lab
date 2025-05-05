@@ -17,8 +17,8 @@ function EventCard({ event }) {
       <p>{event.location} | {new Date(event.eventDate).toDateString()}</p>
       <p>Criteria: {event.judgingCriteria}</p>
       <p>Status: {event.isCanceled ? "Canceled" : "Active"}</p>
-      <button onClick={() => navigate(`/edit/${event.id}`)}>Edit</button>
-      <button onClick={handleDelete}>Delete</button>
+      
+      
     </div>
   );
 }
