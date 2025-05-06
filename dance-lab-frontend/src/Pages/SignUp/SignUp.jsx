@@ -92,5 +92,5 @@ export default function Signup() {
                 <Alert severity="error">{error}</Alert>
             </Snackbar>
         </motion.div>
-    );
+    );  
 }

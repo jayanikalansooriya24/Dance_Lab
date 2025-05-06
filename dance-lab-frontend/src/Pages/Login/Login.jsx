@@ -39,7 +39,7 @@ export default function Login() {
         e.preventDefault();
         setLoading(true);
         try {
-            await login(email, password);
+            await login(email, password); 
             navigate('/profile');
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
