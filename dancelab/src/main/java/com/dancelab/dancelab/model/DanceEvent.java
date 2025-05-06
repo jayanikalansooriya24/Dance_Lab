@@ -17,6 +17,7 @@ public class DanceEvent {
     private String judgingCriteria;
     private String schedule;
     private boolean isCanceled;
+    
 
     // Getters and Setters 👇
 

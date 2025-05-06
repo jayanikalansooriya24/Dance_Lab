@@ -15,7 +15,7 @@ function CreateEvent() {
     targetAgeRange: "",
     isRecurring: false,
     themeColor: "#000000",
-    flyerUrl: "",
+   
   });
 
   const [uploading, setUploading] = useState(false);
@@ -87,7 +87,7 @@ function CreateEvent() {
           targetAgeRange: "",
           isRecurring: false,
           themeColor: "#000000",
-          flyerUrl: "",
+         
         });
       }
     } catch (err) {
@@ -123,16 +123,8 @@ function CreateEvent() {
           <input type="color" name="themeColor" value={formData.themeColor} onChange={handleChange} />
         </label>
 
-        <label>
-          Upload Event Flyer:
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
-        </label>
-        {uploading && <p>Uploading flyer...</p>}
-        {formData.flyerUrl && (
-          <div style={{ marginTop: '1rem' }}>
-            <img src={formData.flyerUrl} alt="Flyer Preview" style={{ width: '200px', borderRadius: '8px' }} />
-          </div>
-        )}
+        
+      
 
         <button type="submit">Create</button>
       </form>
@@ -148,7 +140,7 @@ function CreateEvent() {
         <p><strong>Age Range:</strong> {formData.targetAgeRange || "N/A"}</p>
         <p><strong>Status:</strong> {formData.isCanceled ? "Canceled" : "Active"}</p>
         <p><strong>Recurring:</strong> {formData.isRecurring ? "Yes" : "No"}</p>
-        {formData.flyerUrl && <img src={formData.flyerUrl} alt="Flyer Preview" style={{ width: '200px', marginTop: '10px' }} />}
+      
       </div>
     </div>
   );

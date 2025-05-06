@@ -14,6 +14,7 @@ function EventCard({ event }) {
   return (
     <div style={{ borderLeft: `6px solid ${event.themeColor}`, paddingLeft: "10px" }}>
       <h3 style={{ color: event.themeColor }}>{event.title}</h3>
+      
       <p>{event.location} | {new Date(event.eventDate).toDateString()}</p>
       <p><strong>Criteria:</strong> {event.judgingCriteria}</p>
       <p><strong>Schedule:</strong> {event.schedule}</p>
