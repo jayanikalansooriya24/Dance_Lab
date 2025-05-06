@@ -9,4 +9,6 @@ public interface DanceVideoRepository extends MongoRepository<DanceVideo, String
     List<DanceVideo> findByTitleContaining(String title);
     List<DanceVideo> findByStyle(String style);
     List<DanceVideo> findByDifficulty(String difficulty);
+    
+
 }
