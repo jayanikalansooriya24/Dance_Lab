@@ -6,6 +6,6 @@ import java.util.List;
 public interface DanceAnalysisService {
     DanceAnalysis submitAnalysis(DanceAnalysis analysis);
     List<DanceAnalysis> getAllAnalysis();
-    DanceAnalysis updateAnalysis(Long id, DanceAnalysis updated);
-    void deleteAnalysis(Long id); // Corrected method signature
+    DanceAnalysis updateAnalysis(String id, DanceAnalysis updated);
+    void deleteAnalysis(String id);
 }

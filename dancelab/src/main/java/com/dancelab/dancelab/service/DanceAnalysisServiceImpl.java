@@ -26,17 +26,24 @@ public class DanceAnalysisServiceImpl implements DanceAnalysisService {
     }
 
     @Override
-    public DanceAnalysis updateAnalysis(Long id, DanceAnalysis updated) {
-        DanceAnalysis existing = repository.findById(id).orElseThrow();
-        existing.setRoutineTitle(updated.getRoutineTitle());
-        existing.setAnalysisResult(updated.getAnalysisResult());
-        existing.setFeedback(updated.getFeedback());
-        existing.setShared(updated.isShared());
-        return repository.save(existing);
+    public DanceAnalysis updateAnalysis(String id, DanceAnalysis updated) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setRoutineTitle(updated.getRoutineTitle());
+                    existing.setUserName(updated.getUserName());
+                    existing.setAnalysisResult(updated.getAnalysisResult());
+                    existing.setFeedback(updated.getFeedback());
+                    existing.setShared(updated.isShared());
+                    return repository.save(existing);
+                })
+                .orElseThrow(() -> new RuntimeException("Dance analysis not found with id: " + id));
     }
 
     @Override
-    public void deleteAnalysis(Long id) {
+    public void deleteAnalysis(String id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Dance analysis not found with id: " + id);
+        }
         repository.deleteById(id);
     }
 }

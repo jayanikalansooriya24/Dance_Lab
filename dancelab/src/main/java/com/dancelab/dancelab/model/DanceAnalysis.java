@@ -1,28 +1,25 @@
 package com.dancelab.dancelab.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
-@Entity
+@Document(collection = "dance_analysis")
 public class DanceAnalysis {
     
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String routineTitle;
     private String userName;
     private String analysisResult;
     private String feedback;
     private boolean shared;
-
-    @Temporal(TemporalType.TIMESTAMP)
     private Date submittedAt;
 
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getRoutineTitle() { return routineTitle; }
     public void setRoutineTitle(String routineTitle) { this.routineTitle = routineTitle; }

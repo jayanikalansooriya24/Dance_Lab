@@ -1,10 +1,11 @@
-
 // src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Home/home';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
+import AnalysisManagement from './Pages/AnalysisManagement/AnalysisManagement';
+import Dashboard from './Pages/Dashboard/Dashboard';
 import './App.css';
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Add more routes here if needed */}
+          <Route path="/analysis" element={<AnalysisManagement />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />
       </div>
@@ -22,4 +24,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;
