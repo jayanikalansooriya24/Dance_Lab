@@ -8,4 +8,5 @@ public interface CollabProjectService {
     List<CollabProject> getAllProjects();
     CollabProject updateProject(String id, CollabProject updatedProject);
     void deleteProject(String id);
+    CollabProject likeProject(String id); // New method for liking a project
 }

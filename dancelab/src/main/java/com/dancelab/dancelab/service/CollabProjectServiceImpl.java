@@ -39,6 +39,8 @@ public class CollabProjectServiceImpl implements CollabProjectService {
         existingProject.setRoles(updatedProject.getRoles());
         existingProject.setCollaborators(updatedProject.getCollaborators());
         existingProject.setCompleted(updatedProject.isCompleted());
+        existingProject.setVideoLink(updatedProject.getVideoLink());
+        existingProject.setLikes(updatedProject.getLikes());
 
         return collabProjectRepository.save(existingProject);
     }
@@ -46,5 +48,13 @@ public class CollabProjectServiceImpl implements CollabProjectService {
     @Override
     public void deleteProject(String id) {
         collabProjectRepository.deleteById(id);
+    }
+
+    @Override
+    public CollabProject likeProject(String id) {
+        CollabProject project = collabProjectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Project not found with id: " + id));
+        project.setLikes(project.getLikes() + 1);
+        return collabProjectRepository.save(project);
     }
 }

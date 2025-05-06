@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/collab")
-@CrossOrigin(origins = "*") // allow Postman to connect
+@CrossOrigin(origins = "*")
 public class CollabProjectController {
 
     private final CollabProjectService collabProjectService;
@@ -37,5 +37,10 @@ public class CollabProjectController {
     @DeleteMapping("/{id}")
     public void deleteProject(@PathVariable String id) {
         collabProjectService.deleteProject(id);
+    }
+
+    @PostMapping("/{id}/like")
+    public CollabProject likeProject(@PathVariable String id) {
+        return collabProjectService.likeProject(id);
     }
 }

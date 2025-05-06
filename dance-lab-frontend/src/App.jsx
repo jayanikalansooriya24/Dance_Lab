@@ -6,6 +6,8 @@ import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 
 import Home from './Pages/Home/home';
+import Collab from './Pages/Collab/collabproject'
+import MyCollabs from './Pages/MyCollabs/mycollabs'
 
 import './App.css';
 
@@ -16,7 +18,9 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* Add more routes here if needed */}
+          <Route path="/collab" element={<Collab />} />
+          <Route path="/mycollab" element={<MyCollabs />} />
+         
         </Routes>
         <Footer />
       </div>

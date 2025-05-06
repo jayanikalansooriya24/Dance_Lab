@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 import java.util.List;
 
-@Document(collection = "collab_projects") // or "collab" if you prefer
+@Document(collection = "collab_projects")
 public class CollabProject {
     @Id
     private String id;
@@ -18,12 +18,13 @@ public class CollabProject {
     private List<String> roles;
     private List<String> collaborators;
     private boolean completed;
+    private String videoLink;
+    private int likes; // New field for likes
 
-    // Constructors
     public CollabProject() {}
 
     public CollabProject(String projectTitle, String description, Date startDate, Date endDate,
-                         List<String> roles, List<String> collaborators, boolean completed) {
+                         List<String> roles, List<String> collaborators, boolean completed, String videoLink, int likes) {
         this.projectTitle = projectTitle;
         this.description = description;
         this.startDate = startDate;
@@ -31,70 +32,37 @@ public class CollabProject {
         this.roles = roles;
         this.collaborators = collaborators;
         this.completed = completed;
+        this.videoLink = videoLink;
+        this.likes = likes;
     }
 
-    // Getters and Setters
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getProjectTitle() { return projectTitle; }
+    public void setProjectTitle(String projectTitle) { this.projectTitle = projectTitle; }
 
-    public String getProjectTitle() {
-        return projectTitle;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setProjectTitle(String projectTitle) {
-        this.projectTitle = projectTitle;
-    }
+    public Date getStartDate() { return startDate; }
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
 
-    public String getDescription() {
-        return description;
-    }
+    public Date getEndDate() { return endDate; }
+    public void setEndDate(Date endDate) { this.endDate = endDate; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public List<String> getRoles() { return roles; }
+    public void setRoles(List<String> roles) { this.roles = roles; }
 
-    public Date getStartDate() {
-        return startDate;
-    }
+    public List<String> getCollaborators() { return collaborators; }
+    public void setCollaborators(List<String> collaborators) { this.collaborators = collaborators; }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+    public boolean isCompleted() { return completed; }
+    public void setCompleted(boolean completed) { this.completed = completed; }
 
-    public Date getEndDate() {
-        return endDate;
-    }
+    public String getVideoLink() { return videoLink; }
+    public void setVideoLink(String videoLink) { this.videoLink = videoLink; }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    public List<String> getCollaborators() {
-        return collaborators;
-    }
-
-    public void setCollaborators(List<String> collaborators) {
-        this.collaborators = collaborators;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
+    public int getLikes() { return likes; }
+    public void setLikes(int likes) { this.likes = likes; }
 }
