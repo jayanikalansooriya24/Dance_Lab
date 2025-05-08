@@ -1,120 +1,357 @@
+/* collabproject.css */
+
+/* Variables for consistent theming */
+:root {
+  --primary: #8e44ad;
+  --primary-light: #a55ebc;
+  --primary-dark: #703688;
+  --secondary: #3498db;
+  --accent: #f39c12;
+  --background: #f5f7fa;
+  --card-bg: #ffffff;
+  --text-dark: #2c3e50;
+  --text-light: #7f8c8d;
+  --success: #2ecc71;
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --gradient: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+/* Base styling */
+body {
+  background-color: var(--background);
+  color: var(--text-dark);
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+/* Main container styling with decorative elements */
 .collab-create-container {
-  max-width: 600px;
-  margin: 2.5rem auto;
-  padding: 2rem;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f1ff 100%);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
 }
 
-.collab-create-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+/* Decorative elements */
+.collab-create-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: var(--gradient);
 }
 
+.collab-create-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(142, 68, 173, 0.1) 0%, rgba(142, 68, 173, 0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+/* Heading styles with animation */
 .collab-create-container h2 {
   text-align: center;
-  color: #2c2c54;
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  position: relative;
+  padding-bottom: 1rem;
+  animation: fadeInDown 0.8s ease-out;
 }
 
+.collab-create-container h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--gradient);
+  border-radius: 2px;
+}
+
+/* Form styling */
 .collab-form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.8s ease-out;
 }
 
-.collab-form input,
+/* Input field styling with floating labels */
+.collab-form input[type="text"],
+.collab-form input[type="date"],
 .collab-form textarea {
-  padding: 0.8rem;
-  border: 1px solid #d0c7e6;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  background-color: #fff;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  padding: 14px 18px;
+  border: 2px solid rgba(127, 140, 141, 0.2);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
   width: 100%;
-  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
 }
 
+/* Textarea specific styling */
+.collab-form textarea {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Focus states for inputs with glow effect */
 .collab-form input:focus,
 .collab-form textarea:focus {
-  border-color: #4ecdc4;
-  box-shadow: 0 0 8px rgba(78, 205, 196, 0.3);
   outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.25);
+  transform: translateY(-2px);
 }
 
-.collab-form textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
+/* Label styling */
 .collab-form label {
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  display: block;
+  transition: var(--transition);
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+/* Checkbox container styling */
+.collab-form label:has(input[type="checkbox"]) {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #4b0082;
-  font-size: 0.9rem;
-  font-weight: 500;
+  gap: 0.8rem;
+  cursor: pointer;
+  margin: 0.5rem 0;
+  padding: 8px 16px;
+  background-color: rgba(142, 68, 173, 0.05);
+  border-radius: 8px;
+  transition: var(--transition);
 }
 
+.collab-form label:has(input[type="checkbox"]):hover {
+  background-color: rgba(142, 68, 173, 0.1);
+}
+
+/* Checkbox styling */
 .collab-form input[type="checkbox"] {
-  width: auto;
-  accent-color: #ff6b6b;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.collab-form button {
-  padding: 0.8rem;
-  background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+/* Submit button styling with gradient and effects */
+.collab-form button[type="submit"] {
+  background: var(--gradient);
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 30px;
+  padding: 16px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
+  transition: var(--transition);
+  margin-top: 1.5rem;
+  align-self: center;
+  min-width: 220px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 1px;
 }
 
-.collab-form button:hover {
-  background: linear-gradient(45deg, #45b7d1, #4ecdc4);
-  transform: scale(1.05);
+/* Button hover effect */
+.collab-form button[type="submit"]:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
 }
 
-.collab-form button:active {
-  transform: scale(0.98);
+/* Button ripple effect */
+.collab-form button[type="submit"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
 }
 
-@media (max-width: 480px) {
+.collab-form button[type="submit"]:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+/* Input group styling */
+.collab-form .input-group {
+  position: relative;
+}
+
+.collab-form .input-group input:focus + .input-icon,
+.collab-form .input-group textarea:focus + .input-icon {
+  color: var(--primary);
+}
+
+/* Placeholder color */
+::placeholder {
+  color: var(--text-light);
+  opacity: 0.7;
+}
+
+/* Date input specific styling */
+input[type="date"] {
+  font-family: inherit;
+  color: var(--text-dark);
+  position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .collab-create-container {
-    margin: 1.5rem;
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
+    margin: 1rem;
   }
-
+  
   .collab-create-container h2 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
+  
+  .collab-form button[type="submit"] {
+    width: 100%;
+  }
+}
 
-  .collab-form input,
-  .collab-form textarea {
-    font-size: 0.9rem;
-    padding: 0.7rem;
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
 
-  .collab-form button {
-    font-size: 0.9rem;
-    padding: 0.7rem;
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .collab-form label {
-    font-size: 0.85rem;
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
   }
+  20% {
+    transform: scale(25, 25);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Success message animation */
+.submit-success {
+  color: var(--success);
+  text-align: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(46, 204, 113, 0.1);
+  border-radius: var(--border-radius);
+  animation: fadeInUp 0.5s ease-in-out;
+  font-weight: 600;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Additional hover effects for inputs */
+.collab-form input[type="text"]:hover,
+.collab-form input[type="date"]:hover,
+.collab-form textarea:hover {
+  border-color: rgba(142, 68, 173, 0.3);
+}
+
+/* Field focus highlight animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(142, 68, 173, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(142, 68, 173, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(142, 68, 173, 0);
+  }
+}
+
+/* Input group with icon support */
+.input-group {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+/* Optional field indication */
+.field-optional {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
+/* Field hints */
+.field-hint {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+  font-style: italic;
 }
