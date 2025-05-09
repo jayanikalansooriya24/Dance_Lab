@@ -1,6 +1,6 @@
-package com.dancelab.dancelab.controller;
+package com.dancelab.dancelab.Controller;
 
-import com.dancelab.dancelab.model.DanceEvent;
+import com.dancelab.dancelab.Model.DanceEvent;
 import com.dancelab.dancelab.service.DanceEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

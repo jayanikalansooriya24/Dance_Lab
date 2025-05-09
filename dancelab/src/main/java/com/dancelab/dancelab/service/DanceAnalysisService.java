@@ -1,6 +1,6 @@
 package com.dancelab.dancelab.service;
 
-import com.dancelab.dancelab.model.DanceAnalysis;
+import com.dancelab.dancelab.Model.DanceAnalysis;
 import java.util.List;
 
 public interface DanceAnalysisService {
