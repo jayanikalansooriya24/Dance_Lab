@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './home.css'; // Import your CSS file for styling
-import heroImg from '../../assets/1.jpg';
+import heroImg from '../assets/1.jpg';
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
 
     <div className="cta-buttons">
       <Link to="/signup" className="cta-button primary">Join Now</Link>
-      <Link to="/create" className="cta-button secondary">Book Event</Link>
+      <Link to="/explore" className="cta-button secondary">Explore</Link>
     </div>
 
     <div className="hero-image-section">
@@ -22,6 +22,8 @@ const Home = () => {
     </div>
   </div>
 </section>
+
+
 
 
       {/* Features Section */}
@@ -84,4 +86,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home;
