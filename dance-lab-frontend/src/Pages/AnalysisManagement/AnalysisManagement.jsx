@@ -17,7 +17,7 @@ const AnalysisManagement = () => {
     const [userNameError, setUserNameError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const API_URL = 'http://localhost:8081/api/analysis';
+    const API_URL = 'http://localhost:9090/api/analysis';
 
     useEffect(() => {
         fetchAnalyses();
@@ -45,7 +45,6 @@ const AnalysisManagement = () => {
         const { name, value, type, checked } = e.target;
         
         if (name === 'userName') {
-            // Only allow alphabetic characters
             if (/^[a-zA-Z\s]*$/.test(value)) {
                 setFormData(prev => ({
                     ...prev,
@@ -139,28 +138,23 @@ const AnalysisManagement = () => {
     const downloadAnalysis = (analysis) => {
         const doc = new jsPDF();
         
-        // Add title
         doc.setFontSize(20);
         doc.text('Dance Analysis Report', 20, 20);
         
-        // Add analysis details
         doc.setFontSize(12);
         doc.text(`Routine Title: ${analysis.routineTitle}`, 20, 40);
         doc.text(`User Name: ${analysis.userName}`, 20, 50);
         doc.text(`Submitted At: ${new Date(analysis.submittedAt).toLocaleString()}`, 20, 60);
         doc.text(`Shared: ${analysis.shared ? 'Yes' : 'No'}`, 20, 70);
         
-        // Add analysis result
         doc.text('Analysis Result:', 20, 90);
         const splitText = doc.splitTextToSize(analysis.analysisResult, 170);
         doc.text(splitText, 20, 100);
-        
-        // Add feedback if exists
+
         if (analysis.feedback) {
-            const yPos = doc.previousAutoTable.finalY || 100;
-            doc.text('Feedback:', 20, yPos + 20);
+            doc.text('Feedback:', 20, 110 + splitText.length * 5);
             const feedbackSplit = doc.splitTextToSize(analysis.feedback, 170);
-            doc.text(feedbackSplit, 20, yPos + 30);
+            doc.text(feedbackSplit, 20, 120 + splitText.length * 5);
         }
         
         doc.save(`dance-analysis-${analysis.routineTitle.replace(/\s+/g, '-')}.pdf`);
@@ -169,11 +163,9 @@ const AnalysisManagement = () => {
     const downloadAllAnalyses = () => {
         const doc = new jsPDF();
         
-        // Add title
         doc.setFontSize(20);
         doc.text('Dance Analysis Summary Report', 20, 20);
         
-        // Create table data
         const tableData = analyses.map(analysis => [
             analysis.routineTitle,
             analysis.userName,
@@ -183,7 +175,6 @@ const AnalysisManagement = () => {
             new Date(analysis.submittedAt).toLocaleString()
         ]);
         
-        // Add table
         doc.autoTable({
             head: [['Routine Title', 'User Name', 'Analysis Result', 'Feedback', 'Shared', 'Submitted At']],
             body: tableData,
@@ -344,4 +335,4 @@ const AnalysisManagement = () => {
     );
 };
 
-export default AnalysisManagement; 
+export default AnalysisManagement;

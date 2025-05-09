@@ -1,4 +1,4 @@
-package com.dancelab.dancelab.Config;
+package com.dancelab.dancelab.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -18,6 +18,12 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")  // Apply to all other endpoints
                 .allowedOrigins("http://localhost:5173")  // Allow frontend URL
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(true);  // Allow credentials (cookies, authentication)
+        //video upload access
+        registry.addMapping("/videos/**")  // Apply to video upload endpoint
+                .allowedOrigins("http://localhost:5173")  // Allow frontend URL
+                .allowedMethods("POST")
                 .allowedHeaders("*")
                 .allowCredentials(true);  // Allow credentials (cookies, authentication)
     }

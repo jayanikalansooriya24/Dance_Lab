@@ -78,8 +78,12 @@ export default function VideoUpload({ onUpload = () => {} }) {
       setStyle("");
       setError(null);
       setSuccess(true);
+
+
+      console.log("Video uploaded successfully:", response.data);
     } catch (err) {
       setError("Failed to upload video: " + err.message);
+      console.log(err);
     } finally {
       setUploading(false);
     }

@@ -1,7 +1,8 @@
 package com.dancelab.dancelab.service;
 
-import com.dancelab.dancelab.Model.DanceEvent;
 import java.util.List;
+
+import com.dancelab.dancelab.model.DanceEvent;
 
 public interface DanceEventService {
     DanceEvent createEvent(DanceEvent event);

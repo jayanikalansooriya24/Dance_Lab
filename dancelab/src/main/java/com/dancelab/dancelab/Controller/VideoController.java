@@ -1,7 +1,7 @@
-package com.dancelab.dancelab.Controller;
+package com.dancelab.dancelab.controller;
 
-import com.dancelab.dancelab.Model.DanceVideo;
-import com.dancelab.dancelab.Model.Comment;
+import com.dancelab.dancelab.model.Comment;
+import com.dancelab.dancelab.model.DanceVideo;
 import com.dancelab.dancelab.repository.DanceVideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/videos")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173")
 public class VideoController {
 
     private static final Logger logger = LoggerFactory.getLogger(VideoController.class);

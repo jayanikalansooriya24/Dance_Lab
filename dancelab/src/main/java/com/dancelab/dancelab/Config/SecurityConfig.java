@@ -1,4 +1,4 @@
-package com.dancelab.dancelab.Config;
+package com.dancelab.dancelab.config;
 
 public class SecurityConfig {
 

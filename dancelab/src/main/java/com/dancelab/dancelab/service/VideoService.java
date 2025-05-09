@@ -1,9 +1,9 @@
 package com.dancelab.dancelab.service;
 
-import com.dancelab.dancelab.Model.DanceVideo;
-import com.dancelab.dancelab.Model.User;
-import com.dancelab.dancelab.Model.Audio;
 import com.dancelab.dancelab.repository.DanceVideoRepository;
+import com.dancelab.dancelab.model.Audio;
+import com.dancelab.dancelab.model.DanceVideo;
+import com.dancelab.dancelab.model.User;
 import com.dancelab.dancelab.repository.AudioRepository;
 import com.google.cloud.storage.Blob;
 import com.google.firebase.cloud.StorageClient;

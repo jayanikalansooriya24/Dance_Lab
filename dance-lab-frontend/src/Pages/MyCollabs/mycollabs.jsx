@@ -14,7 +14,7 @@ const MyCollabs = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await fetch("http://localhost:8081/api/collab");
+      const res = await fetch("http://localhost:9090/api/collab");
       const data = await res.json();
       setProjects(data);
     } catch (err) {
@@ -28,7 +28,7 @@ const MyCollabs = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:8081/api/collab/${id}`, {
+      await fetch(`http://localhost:9090/api/collab/${id}`, {
         method: "DELETE",
       });
       setProjects(projects.filter((p) => p.id !== id));
@@ -71,7 +71,7 @@ const MyCollabs = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:8081/api/collab/${editingId}`,
+        `http://localhost:9090/api/collab/${editingId}`,
         {
           method: "PUT",
           headers: {
@@ -94,7 +94,7 @@ const MyCollabs = () => {
 
   const handleLike = async (id) => {
     try {
-      const res = await fetch(`http://localhost:8081/api/collab/${id}/like`, {
+      const res = await fetch(`http://localhost:9090/api/collab/${id}/like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

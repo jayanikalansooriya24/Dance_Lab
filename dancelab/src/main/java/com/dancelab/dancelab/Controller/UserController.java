@@ -1,4 +1,4 @@
-package com.dancelab.dancelab.Controller;
+package com.dancelab.dancelab.controller;
 
 public class UserController {
     

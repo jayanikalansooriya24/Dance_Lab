@@ -1,7 +1,8 @@
 package com.dancelab.dancelab.repository;
 
-import com.dancelab.dancelab.Model.DanceAnalysis;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.dancelab.dancelab.model.DanceAnalysis;
 
 public interface DanceAnalysisRepository extends MongoRepository<DanceAnalysis, String> {
 }

@@ -1,7 +1,8 @@
 package com.dancelab.dancelab.repository;
 
-import com.dancelab.dancelab.Model.DanceVideo;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.dancelab.dancelab.model.DanceVideo;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.dancelab.dancelab.Controller;
+package com.dancelab.dancelab.controller;
 
-import com.dancelab.dancelab.Model.DanceAnalysis;
+import com.dancelab.dancelab.model.DanceAnalysis;
 import com.dancelab.dancelab.service.DanceAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/analysis")
-@CrossOrigin(origins = "*")
 public class DanceAnalysisController {
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.dancelab.dancelab.service;
 
-import com.dancelab.dancelab.Model.DanceEvent;
+import com.dancelab.dancelab.model.DanceEvent;
 import com.dancelab.dancelab.repository.DanceEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

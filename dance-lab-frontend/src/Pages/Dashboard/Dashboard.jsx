@@ -12,7 +12,7 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(false);
     const [likedFeedbacks, setLikedFeedbacks] = useState(new Set());
 
-    const API_URL = 'http://localhost:8081/api/analysis';
+    const API_URL = 'http://localhost:9090/api/analysis';
 
     useEffect(() => {
         fetchAnalyses();
@@ -86,7 +86,7 @@ const Dashboard = () => {
         
         // Add feedback if exists
         if (analysis.feedback) {
-            const yPos = doc.previousAutoTable.finalY || 100;
+            const yPos = doc.previousAutoTable ? doc.previousAutoTable.finalY : 100;
             doc.text('Feedback:', 20, yPos + 20);
             const feedbackSplit = doc.splitTextToSize(analysis.feedback, 170);
             doc.text(feedbackSplit, 20, yPos + 30);

@@ -31,7 +31,7 @@ const CollabProject = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8081/api/collab", {
+      const response = await fetch("http://localhost:9090/api/collab", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
