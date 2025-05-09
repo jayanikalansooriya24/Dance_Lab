@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import Home from './Pages/Home/home';
+import Collab from './Pages/Collab/collabproject'
+import MyCollabs from './Pages/MyCollabs/mycollabs'
 import Eventcreate from "./Pages/Eventcreate/CreateEvent";
 import Eventview from "./Pages/Eventview/ViewEvents";
 import AboutUs from './Pages/Aboutus/AboutUs'; // Import the AboutUs component
@@ -25,6 +27,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/collab" element={<Collab />} />
+          <Route path="/mycollab" element={<MyCollabs />} />
           <Route path="/analysis" element={<AnalysisManagement />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/eventsview" element={<Eventview />} />
