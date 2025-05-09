@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.file-input-container {
+  position: relative;
+  padding: 16px;
+  border: 2px dashed #93c5fd;
+  border-radius: 12px;
+  background: #f8fafc;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.file-input-container.drag-active {
+  border-color: #3b82f6;
+  background: #e0f2fe;
+}
+
+.file-input {
+  display: none;
+}
+
+.custom-file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.custom-file-label:hover {
+  background: #2563eb;
+}
+
+@media (max-width: 640px) {
+  .file-input-container {
+    padding: 12px;
+  }
+
+  .custom-file-label {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}

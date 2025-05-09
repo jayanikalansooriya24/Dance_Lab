@@ -1,18 +1,38 @@
-/* src/Components/Navbar/navbar.css */
-
+/* Navbar Container */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 2rem;
-
+  
+  /* Set a fixed width for the navbar */
+  max-width: 1200px; /* Adjust this value for desired desktop width */
+  width: 100%;
+  
+  padding: 0.6rem 1.5rem; /* Adjusted padding */
+  
   background-color: #ffffff;
   position: sticky;
   top: 0;
   z-index: 999;
+  
+  /* Centering the navbar */
+  margin: 0 auto;
 }
 
+/* Navbar Logo */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
 
+.logo-img {
+  height: 150px; /* Adjust logo size for the navbar */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Navbar Links */
 .navbar-links {
   display: flex;
   list-style: none;
@@ -21,25 +41,74 @@
 
 .navbar-links li a {
   text-decoration: none;
-  color: #2914e6;
+  color: #2914e6; /* Link color */
   font-size: medium;
   font-weight: 500;
   transition: color 0.3s;
 }
 
 .navbar-links li a:hover {
-  color: #27040f;
+  color: #27040f; /* Hover color */
 }
 
-.logo-img {
-  height: 200px;           /* ✅ Reasonable size for a navbar */
-  width: auto;            /* ✅ Maintain aspect ratio */
-  object-fit: contain;
+/* Dropdown Styling */
+.dropdown {
+  position: relative;
+  cursor: pointer;
 }
 
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  margin-right: 1rem; /* optional spacing */
+.dropdown-toggle {
+  padding: 10px;
+  color: #0010a0; /* Dropdown text color */
+  text-decoration: none;
+  font-weight: 600;
 }
 
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-width: 220px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu li {
+  list-style: none;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: #090085; /* Link color in dropdown */
+  display: block;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f0f0f0; /* Hover effect in dropdown */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem; /* Adjust padding for smaller screens */
+  }
+
+  .navbar-links {
+    flex-direction: column; /* Stack navbar items vertically on smaller screens */
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .navbar-logo {
+    justify-content: center;
+  }
+
+  .logo-img {
+    height: 100px; /* Adjust logo size for mobile */
+  }
+}
