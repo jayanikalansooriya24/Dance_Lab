@@ -8,6 +8,8 @@ import Eventcreate from "./Pages/Eventcreate/CreateEvent";
 import Eventview from "./Pages/Eventview/ViewEvents";
 import AboutUs from './Pages/Aboutus/AboutUs'; // Import the AboutUs component
 import ContactUs from './Pages/Contactus/Contact'; // Import the ContactUs component
+import Dashboard from './Pages/Dashboard/Dashboard';
+import AnalysisManagement from './Pages/AnalysisManagement/AnalysisManagement';
 
 
 import './App.css';
@@ -19,12 +21,14 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/analysis" element={<AnalysisManagement />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/eventsview" element={<Eventview />} />
           <Route path="/create" element={<Eventcreate />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
            
-  
+
         </Routes>
         <Footer />
       </div>
