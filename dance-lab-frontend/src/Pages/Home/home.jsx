@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './home.css'; // Import your CSS file for styling
 import heroImg from '../../assets/1.jpg';
+import './home.css'; // Import your CSS file for styling
 
 const Home = () => {
   return (
