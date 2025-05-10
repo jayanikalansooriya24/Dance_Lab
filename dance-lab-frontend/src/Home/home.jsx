@@ -1,30 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './home.css'; // Import your CSS file for styling
 import heroImg from '../assets/1.jpg';
+import './Home.css';
 
 const Home = () => {
   return (
     <div className="home-container">
-     <section className="hero-section">
-  <div className="hero-content">
-   
-    <h1>Unleash Your Rhythm, Share Your Passion</h1><br></br>
-    <p>The ultimate platform for dancers and enthusiasts to showcase talent, connect, and elevate skills.</p><br></br>
-
-    <div className="cta-buttons">
-      <Link to="/signup" className="cta-button primary">Join Now</Link>
-      <Link to="/explore" className="cta-button secondary">Explore</Link>
-    </div>
-
-    <div className="hero-image-section">
-      <img src={heroImg} alt="Dancers" className="hero-full-image" />
-    </div>
-  </div>
-</section>
-
-
-
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <div className="hero-text">
+            <h1>Unleash Your Rhythm,<br />Share Your Passion</h1>
+            <p>The ultimate platform for dancers and enthusiasts to showcase talent, connect, and elevate skills.</p>
+            <div className="cta-buttons">
+              <Link to="/signup" className="cta-button primary">Join Now</Link>
+              <Link to="/explore" className="cta-button secondary">Explore</Link>
+            </div>
+          </div>
+          <div className="hero-image">
+            <img src={heroImg} alt="Dancers" />
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
       <section className="features-section">
@@ -71,12 +68,9 @@ const Home = () => {
             <span className="stat-label">Tutorials</span>
           </div>
         </div>
-        <div className="testimonials">
-          {/* Testimonial cards could go here */}
-        </div>
       </section>
 
-      {/* Call to Action */}
+      {/* Final CTA */}
       <section className="cta-section">
         <h2>Ready to Unleash Your Rhythm?</h2>
         <p>Join Dance Lab today and become part of a community that celebrates the art of dance.</p>
@@ -86,4 +80,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home;
