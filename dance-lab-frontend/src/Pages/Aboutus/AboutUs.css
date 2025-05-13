@@ -1,0 +1,263 @@
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Hero section with gradient background */
+.about-hero {
+  background: linear-gradient(135deg, #ff7eb3 0%, #ff758c 100%);
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 15px 30px rgba(255, 121, 154, 0.2);
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.about-hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-out;
+}
+
+.about-hero p {
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+  animation: slideUp 1.2s ease-out;
+}
+
+/* Mission section */
+.about-mission {
+  background-color: white;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 1.4s ease-out;
+}
+
+.about-mission::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #ff7eb3, #ff758c);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.about-mission h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.about-mission h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff7eb3, #ff758c);
+}
+
+.about-mission p {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 1.5rem auto 0;
+}
+
+/* Values section */
+.about-values {
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 1.6s ease-out;
+}
+
+.about-values h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.about-values h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff7eb3, #ff758c);
+}
+
+.about-values ul {
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-values li {
+  font-size: 1.2rem;
+  padding: 1rem 0;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.about-values li:last-child {
+  border-bottom: none;
+}
+
+.about-values li:hover {
+  transform: translateX(10px);
+}
+
+/* CTA section */
+.about-cta {
+  background: linear-gradient(135deg, #43cbff 0%, #9708cc 100%);
+  border-radius: 20px;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 15px 30px rgba(67, 203, 255, 0.2);
+  animation: fadeIn 1.8s ease-out;
+}
+
+.about-cta h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.about-cta p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+.join-btn {
+  background-color: white;
+  color: #9708cc;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.join-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.join-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .about-mission h1,
+  .about-values h1,
+  .about-cta h2 {
+    font-size: 2rem;
+  }
+  
+  .about-hero, 
+  .about-mission,
+  .about-values,
+  .about-cta {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .about-hero p,
+  .about-mission p,
+  .about-cta p {
+    font-size: 1rem;
+  }
+  
+  .about-values li {
+    font-size: 1rem;
+  }
+  
+  .join-btn {
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+  }
+}

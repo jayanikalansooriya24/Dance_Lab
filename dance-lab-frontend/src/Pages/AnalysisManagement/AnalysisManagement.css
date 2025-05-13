@@ -1,0 +1,381 @@
+.analysis-management {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+}
+
+.analysis-management h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, #7604f1, #6909ef);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-left: 4px solid #c62828;
+    box-shadow: 0 2px 4px rgba(198, 40, 40, 0.1);
+    animation: shake 0.5s ease-in-out;
+}
+
+.analysis-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #6904f5;
+    box-shadow: 0 0 0 3px rgba(105, 4, 245, 0.1);
+    background-color: white;
+}
+
+.form-group input[type="text"].error-input {
+    border-color: #f44336;
+    background-color: #ffebee;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-group.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group.checkbox label {
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #6904f5;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.form-actions button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-actions button[type="submit"] {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+    box-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
+}
+
+.form-actions button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+}
+
+.form-actions button[type="button"] {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+    box-shadow: 0 4px 6px rgba(244, 67, 54, 0.2);
+}
+
+.form-actions button[type="button"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(244, 67, 54, 0.3);
+}
+
+.analyses-list {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.analyses-list h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    color: #2c3e50;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+tr:hover {
+    background-color: #f8f9fa;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-buttons button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.edit-button {
+    background: linear-gradient(135deg, #6904f5, #5a03d4);
+    box-shadow: 0 2px 4px rgba(105, 4, 245, 0.2);
+}
+
+.edit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(105, 4, 245, 0.3);
+}
+
+.delete-button {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    box-shadow: 0 2px 4px rgba(244, 67, 54, 0.2);
+}
+
+.delete-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+}
+
+.validation-error {
+    color: #f44336;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@media (max-width: 768px) {
+    .analysis-management {
+        padding: 1rem;
+    }
+
+    .analysis-form,
+    .analyses-list {
+        padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions button {
+        width: 100%;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-buttons button {
+        width: 100%;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+.download-all-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.download-all-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+    box-shadow: 0 4px 6px rgba(33, 150, 243, 0.2);
+}
+
+.download-all-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(33, 150, 243, 0.3);
+}
+
+.download-all-button:disabled {
+    background: linear-gradient(135deg, #bdbdbd, #9e9e9e);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.download-button {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+}
+
+.download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+.search-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.8rem 1.2rem;
+    padding-left: 3rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23546e7a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 1rem center;
+    background-size: 1.2rem;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #6904f5;
+    box-shadow: 0 0 0 3px rgba(105, 4, 245, 0.1);
+    background-color: white;
+}
+
+.search-input::placeholder {
+    color: #90a4ae;
+} 
